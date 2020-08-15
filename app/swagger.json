@@ -1,0 +1,174 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "eLearning API",
+      "description": "Online learning Application API",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "tags": [
+      {
+        "name": "Courses",
+        "description": "API for courses in the system"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/courses": {
+        "post": {
+          "tags": [
+            "Courses"
+          ],
+          "description": "Create new course in system",
+          "parameters": [
+            {
+              "name": "course",
+              "in": "body",
+              "description": "Course that we want to create",
+              "schema": {
+                "$ref": "#/definitions/Course"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "New course is created",
+              "schema": {
+                "$ref": "#/definitions/Course"
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "Courses"
+          ],
+          "summary": "Get all courses in system",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Courses"
+              }
+            }
+          }
+        }
+      },
+      "/courses/{courseId}": {
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "description": "ID of course that we want to find",
+            "type": "string"
+          }
+        ],
+        "get": {
+          "tags": [
+            "Courses"
+          ],
+          "summary": "Get course with given ID",
+          "responses": {
+            "200": {
+              "description": "Course is found",
+              "schema": {
+                "$ref": "#/definitions/Course"
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete course with given ID",
+          "tags": [
+            "Courses"
+          ],
+          "responses": {
+            "200": {
+              "description": "Course is deleted",
+              "schema": {
+                "$ref": "#/definitions/Course"
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Update course with give ID",
+          "tags": [
+            "Courses"
+          ],
+          "parameters": [
+            {
+              "name": "course",
+              "in": "body",
+              "description": "Course with new values of properties",
+              "schema": {
+                "$ref": "#/definitions/Course"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Course is updated",
+              "schema": {
+                "$ref": "#/definitions/Course"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Course": {
+        "required": [
+          "email",
+          "_id"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          "title": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          "description": {
+            "type": "string"
+          },
+          "textbook": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "publicYoutubuId": {
+            "type": "string"
+          },
+          "unlistedYoutubuId": {
+            "type": "string"
+          }
+        }
+      },
+      "Courses": {
+        "type": "array",
+        "$ref": "#/definitions/Course"
+      }
+    }
+  }
