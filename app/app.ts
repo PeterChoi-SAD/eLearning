@@ -16,8 +16,8 @@ class App {
     }
 
     private mongoSetup(): void{
-        var db_server = process.env.DB_SERVER || "localhost";
-        var url = 'mongodb://' + db_server + ':27017';
+
+        var url = "mongodb+srv://elearning:oLbpSYm7OIc51eas@cluster0.wppop.mongodb.net/<dbname>?retryWrites=true&w=majority";
         mongoose.connect(url, {})
         .then(() => console.log('connection successful'))
         .catch((err) => console.error(err));
