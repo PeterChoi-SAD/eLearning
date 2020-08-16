@@ -7,7 +7,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var app_1 = __importDefault(require("./app"));
 var swaggerUi = require('swagger-ui-express');
 var swaggerDocument = require('./swagger.json');
-var PORT = 3000;
+
+const PORT = process.env.PORT || 5000;
+
 app_1.default.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app_1.default.listen(PORT, function () {
     console.log('Express server listening on port ' + PORT);
