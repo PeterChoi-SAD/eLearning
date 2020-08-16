@@ -16,7 +16,9 @@ class App {
     }
 
     private mongoSetup(): void{
-        mongoose.connect('mongodb://localhost:27017/course', {})
+        var db_server = process.env.DB_SERVER || "localhost";
+        var url = 'mongodb://' + db_server + ':27017';
+        mongoose.connect(url, {})
         .then(() => console.log('connection successful'))
         .catch((err) => console.error(err));
     }

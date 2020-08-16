@@ -19,6 +19,10 @@
       {
         "name": "Users",
         "description": "API for users in the system"
+      },
+      {
+        "name": "Orders",
+        "description": "API for orders in the system"
       }
     ],
     "schemes": [
@@ -242,9 +246,114 @@
             }
           }
         }
-      }      
-    },
-    
+      },
+      "/orders": {
+        "post": {
+          "tags": [
+            "Orders"
+          ],
+          "description": "Create new order in system",
+          "parameters": [
+            {
+              "name": "order",
+              "in": "body",
+              "description": "Order that we want to create",
+              "schema": {
+                "$ref": "#/definitions/Order"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "New order is created",
+              "schema": {
+                "$ref": "#/definitions/Order"
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "Orders"
+          ],
+          "summary": "Get all orders in system",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Orders"
+              }
+            }
+          }
+        }
+      },
+      "/orders/{orderId}": {
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "description": "ID of order that we want to find",
+            "type": "string"
+          }
+        ],
+        "get": {
+          "tags": [
+            "Orders"
+          ],
+          "summary": "Get order with given ID",
+          "responses": {
+            "200": {
+              "description": "Order is found",
+              "schema": {
+                "$ref": "#/definitions/Order"
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete order with given ID",
+          "tags": [
+            "Orders"
+          ],
+          "responses": {
+            "200": {
+              "description": "Order is deleted",
+              "schema": {
+                "$ref": "#/definitions/Order"
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Update order with give ID",
+          "tags": [
+            "Orders"
+          ],
+          "parameters": [
+            {
+              "name": "order",
+              "in": "body",
+              "description": "Order with new values of properties",
+              "schema": {
+                "$ref": "#/definitions/Order"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Order is updated",
+              "schema": {
+                "$ref": "#/definitions/Order"
+              }
+            }
+          }
+        }
+      }
+    },  
     "definitions": {
       "Course": {
         "required": [
@@ -256,27 +365,54 @@
             "type": "string",
             "uniqueItems": true
           },
-          "title": {
+          "Title": {
             "type": "string",
             "uniqueItems": true
           },
-          "description": {
+          "Description": {
             "type": "string"
           },
-          "textbook": {
+          "Textbook": {
             "type": "string"
           },
-          "price": {
+          "Price": {
             "type": "number"
           },
-          "publicYoutubuId": {
+          "PublicYoutubuId": {
             "type": "string"
           },
-          "unlistedYoutubuId": {
+          "UnlistedYoutubuId": {
             "type": "string"
           }
         }
       },
+      "Order": {
+        "required": [
+          "courseId",
+          "_id",
+          "userId",
+          "type"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          "CourseId": {
+            "type": "string"
+          },
+          "UserId": {
+            "type": "string"            
+          },
+          "Amount": {
+            "type": "number"
+          },
+          "Type": {
+            "type": "string"
+          }
+        }
+      },
+
       "Courses": {
         "type": "array",
         "$ref": "#/definitions/Course"
